@@ -1,0 +1,58 @@
+{
+  "name": "mhouge.dk",
+  "version": "0.0.0",
+  "description": "My personal website hosted at mhouge.dk",
+  "homepage": "https://mhouge.dk",
+  "bugs": {
+    "url": "https://github.com/hougesen/mhouge.dk"
+  },
+  "contributors": [
+    {
+      "name": "Mads Hougesen",
+      "url": "https://mhouge.dk",
+      "email": "mads@mhouge.dk"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hougesen/mhouge.dk"
+  },
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "typecheck": "nuxt typecheck",
+    "format": "prettier --write --cache .",
+    "format:check": "prettier --check --cache .",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.2",
+    "@nuxt/content": "^3.6.3",
+    "@nuxt/devtools": "^2.6.3",
+    "@nuxt/eslint": "^1.9.0",
+    "@nuxt/image": "^1.11.0",
+    "@nuxtjs/seo": "^3.1.0",
+    "@types/better-sqlite3": "~7.6.13",
+    "eslint-plugin-vuejs-accessibility": "^2.4.1",
+    "nuxt": "^4.0.3",
+    "prettier": "^3.6.2",
+    "vite-plugin-eslint2": "^5.0.4",
+    "vue": "^3.5.21",
+    "vue-router": "^4.5.1"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/vite": "^4.1.12",
+    "@upstash/redis": "^1.35.1",
+    "better-sqlite3": "^12.2.0",
+    "tailwindcss": "^4.1.12"
+  },
+  "packageManager": "pnpm@9.6.0+sha512.38dc6fba8dba35b39340b9700112c2fe1e12f10b17134715a4aa98ccf7bb035e76fd981cf0bb384dfa98f8d6af5481c2bef2f4266a24bfa20c34eb7147ce0b5e"
+}

@@ -1,0 +1,6 @@
+{
+  "$schema": "https://raw.githubusercontent.com/hougesen/mdsf/main/schemas/v0.4.1/mdsf.schema.json",
+  "languages": {
+    "rust": "rustfmt"
+  }
+}
