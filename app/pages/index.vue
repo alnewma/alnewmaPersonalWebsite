@@ -1,31 +1,22 @@
 <script setup lang="ts">
-const title = ''
+import type { Project } from '~~/github'
 
+const title = ''
 useHead({ title })
 useSeoMeta({ title })
 
 const config = useRuntimeConfig()
 
-type Repo = {
-  name: string
-  full_name: string
-  html_url: string
-  description: string | null
-  homepage: string | null
-  language: string | null
-  topics?: string[]
-  stargazers_count: number
-  forks_count: number
-  updated_at: string
-}
+const base =
+  config.app.baseURL.endsWith('/') ? config.app.baseURL : `${config.app.baseURL}/`
 
-const { data: repositories } = await useFetch<Repo[]>(
-  `${config.app.baseURL}repos.json`,
+const { data: repositories } = await useFetch<Project[]>(
+  `${base}repos.json`,
   { default: () => [], server: false }
 )
 
 const { data } = await useFetch<{ languages: { name: string }[] }>(
-  `${config.app.baseURL}github-languages.json`,
+  `${base}github-languages.json`,
   { default: () => ({ languages: [] }), server: false }
 )
 
