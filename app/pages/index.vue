@@ -6,7 +6,20 @@ useSeoMeta({ title })
 
 const config = useRuntimeConfig()
 
-const { data: repositories } = await useFetch<any[]>(
+type Repo = {
+  name: string
+  full_name: string
+  html_url: string
+  description: string | null
+  homepage: string | null
+  language: string | null
+  topics?: string[]
+  stargazers_count: number
+  forks_count: number
+  updated_at: string
+}
+
+const { data: repositories } = await useFetch<Repo[]>(
   `${config.app.baseURL}repos.json`,
   { default: () => [], server: false }
 )
