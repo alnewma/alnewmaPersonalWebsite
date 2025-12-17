@@ -2,9 +2,9 @@
   "name": "alnewmapersonalwebsite",
   "version": "0.0.0",
   "description": "My personal website hosted on Github Pages",
-  "homepage": "https://alnewma.github.io/alnewmaPersonalWebsite/",
+  "homepage": "https://alnewma.github.io/alnewmapersonalwebsite",
   "bugs": {
-    "url": "https://alnewma.github.io/alnewmaPersonalWebsite/"
+    "url": "https://alnewma.github.io/alnewmapersonalwebsite"
   },
   "contributors": [
     {
@@ -15,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/alnewma/alnewmaPersonalWebsite"
+    "url": "https://alnewma.github.io/alnewmapersonalwebsite"
   },
   "license": "MIT",
   "private": true,

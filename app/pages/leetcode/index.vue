@@ -1,4 +1,9 @@
 <script setup lang="ts">
+definePageMeta({
+  // Nuxt won’t create a route for this page
+  // (keeps the file in your repo, but it won’t be reachable)
+  validate: () => false,
+})
 const { data } = useFetch('/api/leetcode/stats');
 
 const title = 'Leetcode';

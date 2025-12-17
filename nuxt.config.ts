@@ -107,18 +107,14 @@ export default defineNuxtConfig({
       crawlLinks: true,
       routes: [
         '/',
-        '/sitemap.xml',
-        '/blog/choosing-a-tech-stack-as-a-junior-developer',
-        '/blog/rogue-one-a-malware-story',
-        '/blog/undergraduate-thesis',
-        '/leetcode',
-        '/npm-packages',
-        '/rust-packages',
+        '/sitemap.xml'
+        //'/leetcode'
       ],
     },
   },
 
   robots: {
+    robotsTxt: false,
     credits: false,
     disallow: ['/404'],
     enabled: true,
@@ -135,7 +131,7 @@ export default defineNuxtConfig({
 
   site: {
     indexable: true,
-    url: 'https://alnewma.github.io/alnewmaPersonalWebsite',
+    url: 'https://alnewma.github.io',
     defaultLocale: 'en',
   },
 

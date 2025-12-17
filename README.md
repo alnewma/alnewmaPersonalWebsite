@@ -1,3 +1,3 @@
-# mhouge.dk
+# alnewmaPersonalWebsite
 
-My personal website hosted at [mhouge.dk](https://mhouge.dk)
+My personal website hosted with [GitHub Pages](https://alnewma.github.io/alnewmapersonalwebsite)
