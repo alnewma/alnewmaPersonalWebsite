@@ -1,72 +1,49 @@
 <script setup lang="ts">
 import { switchHighlightColor } from '~/colors';
-import type { WakatimeStatResponse } from '~~/wakatime';
 
 defineProps<{
-  languages?: WakatimeStatResponse['data']['languages'];
+  languages?: Array<{ name: string }>;
 }>();
 
 const hiddenLanguages = ['other', 'netrw', 'json', 'markdown'];
 
-const defaultLanguages = ['Rust', 'Python', 'TypeScript'];
+const defaultLanguages = ['Java', 'Python', 'GDScript'];
 
 function formatLanguageText(inputLanguages?: string[]) {
-  const l =
-    inputLanguages &&
-    typeof inputLanguages === 'object' &&
-    Array.isArray(inputLanguages) &&
-    inputLanguages?.length
+  const source =
+    Array.isArray(inputLanguages) && inputLanguages.length
       ? inputLanguages
       : defaultLanguages;
 
-  const maxLanguages = Math.min(l?.length ?? 0, 3);
+  const pickedLanguages = source
+    .filter(
+      (lang) =>
+        lang &&
+        lang.length &&
+        !hiddenLanguages.includes(lang.toLowerCase())
+    )
+    .slice(0, 3);
 
-  const pickedLanguages: string[] = [];
+  const formatted = (() => {
+    const list = pickedLanguages.length
+      ? pickedLanguages
+      : defaultLanguages.slice(0, 3);
 
-  for (
-    let i = 0;
-    pickedLanguages.length < maxLanguages && i < l.length;
-    i += 1
-  ) {
-    const language = l[i];
-
-    if (
-      !language ||
-      !language.length ||
-      hiddenLanguages.includes(language.toLowerCase())
-    ) {
-      continue;
+    if (list.length === 1) {
+      return list[0];
     }
 
-    pickedLanguages.push(language);
-  }
-
-  let formatted = '';
-
-  for (let i = 0; i < pickedLanguages.length; i += 1) {
-    const language = pickedLanguages[i];
-
-    if (i === 0) {
-      formatted += language;
-    } else if (i === pickedLanguages.length - 1) {
-      if (formatted.length) {
-        formatted += ' and ';
-      }
-      formatted += language;
-    } else {
-      if (formatted.length) {
-        formatted += ', ';
-      }
-      formatted += l[i];
+    if (list.length === 2) {
+      return `${list[0]} and ${list[1]}`;
     }
-  }
 
-  if (!formatted?.length) {
-    formatted = 'Rust, TypeScript and Python';
-  }
+    return `${list.slice(0, -1).join(', ')}, and ${list[list.length - 1]}`;
+  })();
 
-  return `Lately I have been writing a lot of ${formatted}.`;
+  return `Lately, my projects have been mainly in ${formatted}.`;
 }
+
+
 
 const rotation = ref(0);
 
@@ -138,47 +115,50 @@ function easterEgg() {
           @mouseleave="stopRotation"
           >Hi,</span
         >
-        I'm Mads
+        I'm Alex
       </h1>
 
       <p class="text-xl text-black-primary dark:text-white-primary">
-        I am a software developer from Denmark. Lover of all things programming.
+        I am a computer science major at Clemson University with minors in
+        Artificial Intelligence and Biological Sciences.
         {{
           formatLanguageText(languages?.map((l) => l.name) || defaultLanguages)
         }}
       </p>
 
       <p class="text-dark-primary text-xl dark:text-white-primary">
-        I work @
+        I currently work for the Clemson GRIT Lab, 
+        <!--
         <a
           class="underline"
           href="https://cavea.io?utm_source=mhouge.dk"
           rel="noreferrer noopener"
           target="_blank"
-          >cavea.io</a
+          >jobWebsite.com</a
         >
-        where I spend most of my time building tools for live streamers. Some
-        projects I've worked on include:
+        -->
+        where we are organizing and mapping dozens of demographic datasets for public query. Some
+        other projects I've worked on include:
       </p>
 
       <ul
         class="mb-4 ml-8 list-disc text-xl text-black-primary dark:text-white-primary"
       >
-        <li>A tool for automatically capturing highlights in livestreams</li>
+        <li>An automatated moderation bot for GroupMe</li>
 
         <li>
-          A platform for running
+          A video game
           <a
             class="underline"
-            href="https://adlab.gg?utm_source=mhouge.dk"
+            href="https://store.steampowered.com/app/2542650/Sole_Seeker/"
             rel="noreferrer noopener"
             target="_blank"
-            >influencer campaigns</a
+            >published</a
           >
-          on Twitch
+          on the Steam Marketplace
         </li>
 
-        <li>Dozens of systems for tracking social media performance</li>
+        <li>VR previews of proposed walking trails with a local organization</li>
       </ul>
 
       <div class="flex gap-4">
@@ -189,10 +169,10 @@ function easterEgg() {
     </div>
 
     <NuxtPicture
-      alt="Image of Mads Hougesen"
+      alt="Image of Alex Newman"
       class="order-first mx-auto w-9/12 lg:order-1 lg:mr-0 lg:w-fit lg:text-right max-w-xs xl:max-w-full"
       :img-attrs="{ class: 'mr-auto lg:mr-0 ml-auto lg:text-right' }"
-      src="/mads-hougesen-image.png"
+      src="/alex-newman-image.png"
     />
   </section>
 </template>

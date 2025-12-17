@@ -1,18 +1,15 @@
 <script setup lang="ts">
-const baseTitle = 'Mads Hougesen | Software Developer';
+const baseTitle = 'Alex Newman';
 const baseDescription =
-  'Software developer from Denmark. Lover of all things programming - but  always learning new stuff.';
+  'Computer science student at Clemson University.';
 const baseOgImage = '/og-image.png';
 const ogType = 'website';
-const author = 'Mads Hougesen';
-const ogSiteName = 'Mads Hougesen';
-const twitterCard = 'summary_large_image';
-const twitterCreator = 'mads_hougesen';
-const twitterSite = '@mads_hougesen';
+const author = 'Alex Newman';
+const ogSiteName = 'Alex Newman';
 
 function titleTemplate(title?: string) {
   if (title?.length && title !== baseTitle) {
-    return `${title} | Mads Hougesen`;
+    return `${title} | Alex Newman`;
   }
   return baseTitle;
 }
@@ -37,9 +34,6 @@ useSeoMeta({
   ogType,
   title: baseTitle,
   titleTemplate,
-  twitterCard,
-  twitterCreator,
-  twitterSite,
 });
 
 useServerSeoMeta({
@@ -52,9 +46,6 @@ useServerSeoMeta({
   ogType,
   title: baseTitle,
   titleTemplate,
-  twitterCard,
-  twitterCreator,
-  twitterSite,
 });
 </script>
 

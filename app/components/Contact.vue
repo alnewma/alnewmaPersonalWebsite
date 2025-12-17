@@ -1,9 +1,9 @@
 <template>
   <section id="contact" class="flex flex-col gap-2">
-    <SectionTitle>Wanna get in touch?</SectionTitle>
+    <SectionTitle>Get in Contact</SectionTitle>
 
     <p class="text-xl text-black-primary dark:text-white-primary">
-      I am always available for exciting discussions
+      Feel free to email me at
     </p>
 
     <div>
@@ -12,8 +12,8 @@
 
         <a
           class="text-xl text-black-primary underline dark:text-white-primary"
-          href="mailto:mads@mhouge.dk"
-          >mads@mhouge.dk</a
+          href="mailto:anewma6@clemson.edu"
+          >anewma6@clemson.edu</a
         >
       </div>
 
@@ -21,7 +21,7 @@
         <IconsPin height="20" width="20" />
 
         <p class="text-xl text-black-primary dark:text-white-primary">
-          Odense, Danmark
+          Clemson, South Carolina, USA
         </p>
       </div>
     </div>

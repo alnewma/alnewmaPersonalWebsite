@@ -2,6 +2,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineNuxtConfig({
   app: {
+    baseURL: process.env.NUXT_APP_BASE_URL || '/',
     head: {
       htmlAttrs: {
         lang: 'en',
@@ -101,6 +102,7 @@ export default defineNuxtConfig({
 
   nitro: {
     minify: true,
+    preset: 'github_pages',
     prerender: {
       crawlLinks: true,
       routes: [
@@ -109,7 +111,6 @@ export default defineNuxtConfig({
         '/blog/choosing-a-tech-stack-as-a-junior-developer',
         '/blog/rogue-one-a-malware-story',
         '/blog/undergraduate-thesis',
-        '/lazy',
         '/leetcode',
         '/npm-packages',
         '/rust-packages',
@@ -119,7 +120,7 @@ export default defineNuxtConfig({
 
   robots: {
     credits: false,
-    disallow: ['/api', '/api/*', '/404'],
+    disallow: ['/404'],
     enabled: true,
   },
 
@@ -127,27 +128,14 @@ export default defineNuxtConfig({
     '/': {
       prerender: true,
     },
-    '/api/*': {
-      prerender: false,
-    },
     '/blog/*': {
       prerender: true,
     },
   },
 
-  runtimeConfig: {
-    githubApiKey: process?.env?.NUXT_GITHUB_API_KEY,
-    stravaClientId: process?.env?.NUXT_STRAVA_CLIENT_ID,
-    stravaClientSecret: process?.env?.NUXT_STRAVA_CLIENT_SECRET,
-    stravaRefreshToken: process?.env?.NUXT_STRAVA_REFRESH_TOKEN,
-    upstashRedisRestToken: process?.env?.NUXT_UPSTASH_REDIS_REST_TOKEN,
-    upstashRedisRestUrl: process?.env?.NUXT_UPSTASH_REDIS_REST_URL,
-    wakatimeApiKey: process?.env?.NUXT_WAKATIME_API_KEY,
-  },
-
   site: {
     indexable: true,
-    url: 'https://mhouge.dk',
+    url: 'https://alnewma.github.io/alnewmaPersonalWebsite',
     defaultLocale: 'en',
   },
 

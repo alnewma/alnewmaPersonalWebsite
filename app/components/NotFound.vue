@@ -3,11 +3,11 @@
     <h1
       class="pt-8 text-5xl font-bold text-black-primary lg:text-6xl dark:text-white-primary"
     >
-      Damn, it looks like something went wrong
+      Hold up, something's wrong
     </h1>
 
     <p class="text-xl font-medium text-black-primary dark:text-white-primary">
-      I guess I owe you a beer if this should work 🤷
+      Well this was supposed to work..
     </p>
 
     <NuxtLink

@@ -1,35 +1,29 @@
 <script setup lang="ts">
-const title = '';
+const title = ''
 
-useHead({
-  title,
-});
+useHead({ title })
+useSeoMeta({ title })
 
-useServerHead({
-  title,
-});
+const config = useRuntimeConfig()
 
-useSeoMeta({
-  title,
-});
+const { data: repositories } = await useFetch<any[]>(
+  `${config.app.baseURL}repos.json`,
+  { default: () => [], server: false }
+)
 
-useServerSeoMeta({
-  title,
-});
+const { data } = await useFetch<{ languages: { name: string }[] }>(
+  `${config.app.baseURL}github-languages.json`,
+  { default: () => ({ languages: [] }), server: false }
+)
 
-const { data: repositories } = useFetch('/api/github/repositories');
-
-const { data: metrics } = useFetch('/api/wakatime');
+const languages = computed(() => data.value.languages)
 </script>
 
 <template>
   <div class="flex w-full flex-col gap-12 pb-8">
-    <Hero :languages="metrics?.languages" />
-
+    <Hero :languages="languages" />
     <Projects :projects="repositories || []" />
-
     <BlogPosts />
-
     <Contact />
   </div>
 </template>

@@ -1,21 +1,21 @@
 {
-  "name": "mhouge.dk",
+  "name": "alnewmapersonalwebsite",
   "version": "0.0.0",
-  "description": "My personal website hosted at mhouge.dk",
-  "homepage": "https://mhouge.dk",
+  "description": "My personal website hosted on Github Pages",
+  "homepage": "https://alnewma.github.io/alnewmaPersonalWebsite/",
   "bugs": {
-    "url": "https://github.com/hougesen/mhouge.dk"
+    "url": "https://alnewma.github.io/alnewmaPersonalWebsite/"
   },
   "contributors": [
     {
-      "name": "Mads Hougesen",
-      "url": "https://mhouge.dk",
-      "email": "mads@mhouge.dk"
+      "name": "Alex Newman",
+      "url": "https://github.com/alnewma",
+      "email": "anewma6@clemson.edu"
     }
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/hougesen/mhouge.dk"
+    "url": "https://github.com/alnewma/alnewmaPersonalWebsite"
   },
   "license": "MIT",
   "private": true,
@@ -23,14 +23,15 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "generate": "nuxt generate",
+    "generate": "nuxi generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "typecheck": "nuxt typecheck",
     "format": "prettier --write --cache .",
     "format:check": "prettier --check --cache .",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "generate:data": "node scripts/generate-github-data.mjs"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.2",
@@ -50,8 +51,6 @@
   "dependencies": {
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.12",
-    "@upstash/redis": "^1.35.1",
-    "better-sqlite3": "^12.2.0",
     "tailwindcss": "^4.1.12"
   },
   "packageManager": "pnpm@9.6.0+sha512.38dc6fba8dba35b39340b9700112c2fe1e12f10b17134715a4aa98ccf7bb035e76fd981cf0bb384dfa98f8d6af5481c2bef2f4266a24bfa20c34eb7147ce0b5e"
