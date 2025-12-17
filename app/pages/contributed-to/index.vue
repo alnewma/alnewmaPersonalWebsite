@@ -1,31 +1,19 @@
 <script setup lang="ts">
-const title = 'Open Source contributions';
+import type { Project } from '~~/github'
 
-useHead({
-  title,
-});
+const title = 'Open Source contributions'
 
-useSeoMeta({
-  title,
-});
+useHead({ title })
+useSeoMeta({ title })
 
 const config = useRuntimeConfig()
 
-type Repo = {
-  name: string
-  full_name: string
-  html_url: string
-  description: string | null
-  homepage: string | null
-  language: string | null
-  topics?: string[]
-  stargazers_count: number
-  forks_count: number
-  updated_at: string
-}
+// ensure correct path for GitHub Pages + dev
+const base =
+  config.app.baseURL.endsWith('/') ? config.app.baseURL : `${config.app.baseURL}/`
 
-const { data: repositories } = await useFetch<Repo[]>(
-  `${config.app.baseURL}contributions.json`,
+const { data: repositories } = await useFetch<Project[]>(
+  `${base}contributions.json`,
   {
     default: () => [],
     server: false,
@@ -34,9 +22,13 @@ const { data: repositories } = await useFetch<Repo[]>(
 </script>
 
 <template>
-  <div class="flex w-full flex-col gap-12 pb-8">
+  <!-- Entire section is hidden if there are no contributions -->
+  <div
+    v-if="repositories && repositories.length"
+    class="flex w-full flex-col gap-12 pb-8"
+  >
     <Projects
-      :projects="repositories ?? []"
+      :projects="repositories"
       title="Open Source contributions"
     />
   </div>

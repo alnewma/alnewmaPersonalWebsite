@@ -5,7 +5,7 @@ const PRIMARY_LANGUAGES = new Set([
   'C#', 
   'C', 
   'Java', 
-  'Python'
+  'Python',
 ])
 
 const IGNORED_LANGUAGES = new Set([
