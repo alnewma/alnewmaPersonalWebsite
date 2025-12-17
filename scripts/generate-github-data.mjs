@@ -1,6 +1,12 @@
 import { writeFile, mkdir } from 'node:fs/promises'
 
-const PRIMARY_LANGUAGES = new Set(['GDScript', 'C#', 'C', 'Java', 'Python'])
+const PRIMARY_LANGUAGES = new Set([
+  'GDScript', 
+  'C#', 
+  'C', 
+  'Java', 
+  'Python'
+])
 
 const IGNORED_LANGUAGES = new Set([
   'GLSL',
@@ -18,6 +24,9 @@ const RECENT_PERSONAL_REPOS_FOR_HERO = 3
 const RECENT_CONTRIBUTIONS = 3
 const TOP_LANGS_PER_REPO = 3
 
+// module-level cache (so selectLanguages can read it)
+let LANGUAGE_COLORS = {}
+
 if (!USERNAME) {
   console.error('Missing GITHUB_USERNAME')
   process.exit(1)
@@ -26,6 +35,14 @@ if (!USERNAME) {
 if (!TOKEN) {
   console.error('Missing GITHUB_TOKEN (required for pinned repos via GraphQL)')
   process.exit(1)
+}
+
+async function getLanguageColors() {
+  const res = await fetch(
+    'https://raw.githubusercontent.com/ozh/github-colors/master/colors.json'
+  )
+  if (!res.ok) throw new Error('Failed to fetch language colors')
+  return res.json()
 }
 
 const headers = {
@@ -73,24 +90,30 @@ function selectLanguages(langObj, fallbackLanguage, max = TOP_LANGS_PER_REPO) {
     .filter(([name]) => !IGNORED_LANGUAGES.has(name))
     .sort((a, b) => b[1] - a[1])
 
-  if (!entries.length && fallbackLanguage) return [{ name: fallbackLanguage }]
+  if (!entries.length && fallbackLanguage) {
+    return [{ name: fallbackLanguage, color: null }]
+  }
 
   const present = new Set(entries.map(([name]) => name))
-  const primary = [...PRIMARY_LANGUAGES].filter((lang) => present.has(lang))
+  const primary = [...PRIMARY_LANGUAGES].filter((l) => present.has(l))
   const secondary = entries
     .map(([name]) => name)
     .filter((name) => !primary.includes(name))
 
-  return [...primary, ...secondary].slice(0, max).map((name) => ({ name }))
+  return [...primary, ...secondary]
+    .slice(0, max)
+    .map((name) => ({
+      name,
+      color: LANGUAGE_COLORS?.[name]?.color || null,
+    }))
 }
 
-// ✅ accepts a languages_url string + fallback language string
 async function getTopLanguages(languagesUrl, fallbackLanguage) {
   try {
     const langObj = await gh(languagesUrl)
     return selectLanguages(langObj, fallbackLanguage, TOP_LANGS_PER_REPO)
   } catch {
-    return fallbackLanguage ? [{ name: fallbackLanguage }] : []
+    return fallbackLanguage ? [{ name: fallbackLanguage, color: null }] : []
   }
 }
 
@@ -161,6 +184,9 @@ async function normalizeRestRepoWithTopLangs(r) {
 async function main() {
   await mkdir(OUT_DIR, { recursive: true })
 
+  // Load colors once, before any language selection happens
+  LANGUAGE_COLORS = await getLanguageColors()
+
   // Projects: pinned repos
   const pinned = await getPinnedRepos(USERNAME)
   const pinnedRepos = await mapWithConcurrency(pinned, 6, normalizePinnedRepo)
@@ -214,7 +240,7 @@ async function main() {
     JSON.stringify(contributedRepos, null, 2)
   )
 
-  console.log('✔ GitHub JSON generated (pinned + recent contributions + hero languages)')
+  console.log('GitHub JSON generated (pinned + recent contributions + hero languages)')
 }
 
 main().catch((err) => {
