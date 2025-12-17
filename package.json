@@ -34,7 +34,7 @@
     "generate:data": "node scripts/generate-github-data.mjs"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.2.2",
+    "@biomejs/biome": "^2.3.9",
     "@nuxt/content": "^3.6.3",
     "@nuxt/devtools": "^2.6.3",
     "@nuxt/eslint": "^1.9.0",
