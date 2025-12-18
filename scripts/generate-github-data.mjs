@@ -108,6 +108,32 @@ function selectLanguages(langObj, fallbackLanguage, max = TOP_LANGS_PER_REPO) {
     }))
 }
 
+function pickPrimaryLanguage(langObj, fallbackLanguage) {
+  const entries = Object.entries(langObj)
+    .filter(([name]) => !IGNORED_LANGUAGES.has(name))
+    .sort((a, b) => b[1] - a[1]) // biggest first
+
+  if (!entries.length) return fallbackLanguage ? { name: fallbackLanguage, color: null } : null
+
+  const primaryCandidates = entries.filter(([name]) => PRIMARY_LANGUAGES.has(name))
+  const [pickedName] = (primaryCandidates.length ? primaryCandidates : entries)[0]
+
+  return {
+    name: pickedName,
+    color: LANGUAGE_COLORS?.[pickedName]?.color || null,
+  }
+}
+
+async function getPrimaryLanguage(languagesUrl, fallbackLanguage) {
+  try {
+    const langObj = await gh(languagesUrl)
+    return pickPrimaryLanguage(langObj, fallbackLanguage)
+  } catch {
+    return fallbackLanguage ? { name: fallbackLanguage, color: null } : null
+  }
+}
+
+
 async function getTopLanguages(languagesUrl, fallbackLanguage) {
   try {
     const langObj = await gh(languagesUrl)
@@ -199,25 +225,26 @@ async function main() {
 
   const recentPersonal = personalReposAll
     .filter((r) => !r.fork)
+    .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at))
     .slice(0, RECENT_PERSONAL_REPOS_FOR_HERO)
 
-  const recentPersonalWithLangs = await mapWithConcurrency(
-    recentPersonal,
-    6,
-    normalizeRestRepoWithTopLangs
-  )
+  const primaryLangs = await mapWithConcurrency(recentPersonal, 6, async (r) => {
+    return getPrimaryLanguage(r.languages_url, r.language)
+  })
 
-  const languageSet = new Set()
-  for (const repo of recentPersonalWithLangs) {
-    for (const lang of repo.languages ?? []) {
-      if (lang?.name) languageSet.add(lang.name)
-    }
-  }
+  const heroLanguages = primaryLangs.filter(Boolean)
 
-  const heroLanguages = [...languageSet].sort().map((name) => ({ name }))
+  // optional: dedupe while preserving order
+  const seen = new Set()
+  const heroLanguagesDeduped = heroLanguages.filter((l) => {
+    if (seen.has(l.name)) return false
+    seen.add(l.name)
+    return true
+  })
+
   await writeFile(
     `${OUT_DIR}/github-languages.json`,
-    JSON.stringify({ languages: heroLanguages }, null, 2)
+    JSON.stringify({ languages: heroLanguagesDeduped }, null, 2)
   )
 
   // Contributions: most recent 3 contributed repos
