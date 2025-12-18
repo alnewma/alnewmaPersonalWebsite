@@ -1,3 +1,34 @@
+<script setup lang="ts">
+import { ref, onMounted, computed } from "vue";
+import { withBase } from "ufo";
+
+const lastUpdated = ref("");
+const config = useRuntimeConfig();
+
+// Correct URL for GitHub Pages project sites
+const resumeUrl = computed(() =>
+  withBase("/resume.pdf", config.app.baseURL)
+);
+
+onMounted(async () => {
+  try {
+    const res = await $fetch.raw(resumeUrl.value, { method: "HEAD" });
+    const lastModified = res.headers.get("last-modified");
+
+    if (lastModified) {
+      lastUpdated.value = new Date(lastModified).toLocaleDateString("en-US", {
+        month: "long",
+        year: "numeric",
+      });
+    } else {
+      lastUpdated.value = "";
+    }
+  } catch {
+    lastUpdated.value = "";
+  }
+});
+</script>
+
 <template>
   <section class="max-w-3xl">
     <h1 class="text-4xl font-bold mb-4">My Resume</h1>
@@ -8,14 +39,15 @@
 
     <div class="flex gap-6">
       <a
-        href="../resume.pdf"
+        :href="resumeUrl"
         target="_blank"
+        rel="noreferrer noopener"
         class="text-lg underline underline-offset-8"
       >
         view pdf
       </a>
       <a
-        href="../resume.pdf"
+        :href="resumeUrl"
         download
         class="text-lg underline underline-offset-8"
       >
@@ -32,26 +64,3 @@
     </p>
   </section>
 </template>
-
-<script setup lang="ts">
-import { ref, onMounted } from "vue";
-
-const lastUpdated = ref<string>("");
-
-onMounted(async () => {
-  try {
-    const res = await $fetch.raw("../resume.pdf", { method: "HEAD" });
-    const lastModified = res.headers.get("last-modified");
-
-    if (lastModified) {
-      lastUpdated.value = new Date(lastModified).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-      });
-    }
-  } catch {
-    lastUpdated.value = "";
-  }
-});
-</script>
-

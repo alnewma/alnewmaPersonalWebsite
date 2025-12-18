@@ -74,7 +74,7 @@ function highlightHover() {
         <!--
         <a
           class="underline"
-          href="https://cavea.io?utm_source=mhouge.dk"
+          href="ADD GRIT LAB LINK WHEN AVAILABLE"
           rel="noreferrer noopener"
           target="_blank"
           >jobWebsite.com</a
@@ -105,6 +105,7 @@ function highlightHover() {
       </ul>
 
       <div class="flex gap-4">
+        <EmailLink />
         <GithubLink />
         <LinkedInLink />
       </div>

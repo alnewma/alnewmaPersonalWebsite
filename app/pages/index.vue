@@ -28,6 +28,6 @@ const languages = computed(() => data.value.languages)
     <Hero :languages="languages" />
     <Projects :projects="repositories || []" />
     <BlogPosts />
-    <Contact />
+    <!--<Contact />-->
   </div>
 </template>

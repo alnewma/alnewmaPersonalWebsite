@@ -4,7 +4,7 @@
       <NuxtLink to="/" class="navlink text-3xl lowercase text-black-primary dark:text-white-primary">
         home
       </NuxtLink>
-      <NuxtLink to="/resume" class="navlink text-3xl lowercase text-black-primary dark:text-white-primary">
+      <NuxtLink to="/resume/" class="navlink text-3xl lowercase text-black-primary dark:text-white-primary">
         resume
       </NuxtLink>
     </div>
