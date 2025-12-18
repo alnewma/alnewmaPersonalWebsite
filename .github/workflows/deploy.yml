@@ -33,7 +33,8 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Set Nuxt baseURL for GitHub Pages
-        run: echo "NUXT_APP_BASE_URL=/${{ github.event.repository.name }}/" >> $GITHUB_ENV
+        run: echo "NUXT_APP_BASE_URL=/" >> $GITHUB_ENV
+
 
       - name: Generate GitHub JSON
         run: pnpm run generate:data

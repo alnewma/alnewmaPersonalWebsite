@@ -1,6 +1,6 @@
 import tailwindcss from '@tailwindcss/vite';
 
-const base = process.env.NUXT_APP_BASE_URL || '/alnewmaPersonalWebsite/'
+const base = process.env.NUXT_APP_BASE_URL || '/'
 
 export default defineNuxtConfig({
   app: {
