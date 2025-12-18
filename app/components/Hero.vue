@@ -6,7 +6,6 @@ defineProps<{
 }>();
 
 const hiddenLanguages = ['other', 'netrw', 'json', 'markdown'];
-
 const defaultLanguages = ['Java', 'Python', 'GDScript'];
 
 function formatLanguageText(inputLanguages?: string[]) {
@@ -29,72 +28,17 @@ function formatLanguageText(inputLanguages?: string[]) {
       ? pickedLanguages
       : defaultLanguages.slice(0, 3);
 
-    if (list.length === 1) {
-      return list[0];
-    }
-
-    if (list.length === 2) {
-      return `${list[0]} and ${list[1]}`;
-    }
-
+    if (list.length === 1) return list[0];
+    if (list.length === 2) return `${list[0]} and ${list[1]}`;
     return `${list.slice(0, -1).join(', ')}, and ${list[list.length - 1]}`;
   })();
 
   return `Lately, my projects have been mainly in ${formatted}.`;
 }
 
-
-
-const rotation = ref(0);
-
-const favicon = computed(() => {
-  if (!rotation.value) {
-    return [];
-  }
-
-  const v = rotation.value % 360;
-
-  const href = `/favicon${v === 0 ? '' : `-${v}`}.svg`;
-
-  return [
-    {
-      rel: 'icon',
-      type: 'image/svg+xml',
-      href,
-    },
-  ];
-});
-
-useHead({
-  link: favicon,
-});
-
-const rotateInterval = ref<ReturnType<typeof setInterval>>();
-
-function rotateFavicon() {
-  rotation.value += 15;
-}
-
-function startRotation() {
-  if (rotateInterval.value) {
-    return;
-  }
-
-  rotateFavicon();
-
-  rotateInterval.value = setInterval(rotateFavicon, 100);
-}
-
-function stopRotation() {
-  clearInterval(rotateInterval.value);
-
-  rotateInterval.value = undefined;
-}
-
-function easterEgg() {
+// Keep only the highlight color change on hover/focus
+function highlightHover() {
   switchHighlightColor();
-
-  startRotation();
 }
 </script>
 
@@ -109,12 +53,11 @@ function easterEgg() {
       >
         <span
           class="text-[color:var(--highlight)] duration-300"
-          @focus="easterEgg"
-          @focusout="stopRotation"
-          @mouseenter="easterEgg"
-          @mouseleave="stopRotation"
-          >Hi,</span
+          @mouseenter="highlightHover"
+          @focus="highlightHover"
         >
+          Hi,
+        </span>
         I'm Alex
       </h1>
 
@@ -127,7 +70,7 @@ function easterEgg() {
       </p>
 
       <p class="text-dark-primary text-xl dark:text-white-primary">
-        I currently work for the Clemson GRIT Lab, 
+        I currently work for the Clemson GRIT Lab,
         <!--
         <a
           class="underline"
@@ -163,7 +106,6 @@ function easterEgg() {
 
       <div class="flex gap-4">
         <GithubLink />
-
         <LinkedInLink />
       </div>
     </div>

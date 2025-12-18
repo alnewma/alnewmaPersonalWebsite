@@ -19,24 +19,7 @@ useHead({
   titleTemplate,
 });
 
-useServerHead({
-  title: baseTitle,
-  titleTemplate,
-});
-
 useSeoMeta({
-  author,
-  description: baseDescription,
-  ogDescription: baseDescription,
-  ogImage: baseOgImage,
-  ogSiteName,
-  ogTitle: baseTitle,
-  ogType,
-  title: baseTitle,
-  titleTemplate,
-});
-
-useServerSeoMeta({
   author,
   description: baseDescription,
   ogDescription: baseDescription,

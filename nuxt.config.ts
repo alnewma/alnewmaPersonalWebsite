@@ -1,37 +1,39 @@
 import tailwindcss from '@tailwindcss/vite';
 
+const base = process.env.NUXT_APP_BASE_URL || '/alnewmaPersonalWebsite/'
+
 export default defineNuxtConfig({
   app: {
-    baseURL: process.env.NUXT_APP_BASE_URL || '/',
+    baseURL: base,
     head: {
       htmlAttrs: {
         lang: 'en',
       },
       link: [
         {
-          href: '/apple-touch-icon.png',
+          href: `${base}apple-touch-icon.png`,
           rel: 'apple-touch-icon',
           sizes: '180x180',
         },
         {
-          href: '/favicon-32x32.png',
+          href: `${base}favicon-32x32.png`,
           rel: 'icon',
           sizes: '32x32',
           type: 'image/png',
         },
         {
-          href: '/favicon-16x16.png',
+          href: `${base}favicon-16x16.png`,
           rel: 'icon',
           sizes: '16x16',
           type: 'image/png',
         },
         {
-          href: '/site.webmanifest',
+          href: `${base}site.webmanifest`,
           rel: 'manifest',
         },
         {
           color: '#5bbad5',
-          href: '/safari-pinned-tab.svg',
+          href: `${base}safari-pinned-tab.svg`,
           rel: 'mask-icon',
         },
         {
