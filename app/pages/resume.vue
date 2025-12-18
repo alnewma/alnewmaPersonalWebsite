@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from "vue";
-import { withBase } from "ufo";
 
 const lastUpdated = ref("");
 const config = useRuntimeConfig();
 
-// Correct URL for GitHub Pages project sites
-const resumeUrl = computed(() =>
-  withBase("/resume.pdf", config.app.baseURL)
-);
+const resumeUrl = computed(() => {
+  const base = config.app.baseURL.endsWith("/") ? config.app.baseURL : `${config.app.baseURL}/`;
+  return `${base}resume.pdf`;
+});
 
 onMounted(async () => {
   try {
@@ -28,6 +27,7 @@ onMounted(async () => {
   }
 });
 </script>
+
 
 <template>
   <section class="max-w-3xl">
