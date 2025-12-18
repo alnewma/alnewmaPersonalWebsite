@@ -107,11 +107,9 @@ export default defineNuxtConfig({
     preset: 'github_pages',
     prerender: {
       crawlLinks: true,
-      ignore: ['/leetcode', '/api/leetcode/stats'], // leetcode staying unused for now
       routes: [
         '/',
         '/sitemap.xml'
-        //'/leetcode'
       ],
     },
   },

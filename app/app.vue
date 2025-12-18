@@ -33,9 +33,11 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="container mx-auto flex h-full min-h-screen flex-col px-8 py-4">
+  <div class="min-h-screen flex flex-col">
     <Navigation />
 
-    <NuxtPage />
+    <main class="container mx-auto flex-1 px-8 py-4">
+      <NuxtPage />
+    </main>
   </div>
 </template>

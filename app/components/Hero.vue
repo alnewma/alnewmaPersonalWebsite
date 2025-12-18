@@ -58,7 +58,7 @@ function highlightHover() {
         >
           Hi,
         </span>
-        I'm Alex
+        I'm Alex Newman
       </h1>
 
       <p class="text-xl text-black-primary dark:text-white-primary">
